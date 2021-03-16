@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
+  final color = Color.fromRGBO(222, 195, 122, 1);
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -24,7 +25,7 @@ class HomePage extends StatelessWidget {
         width: width,
         height: height,
         decoration: BoxDecoration(
-          color: Color.fromRGBO(222, 195, 122, 1),
+          color: Colors.white,
         ),
         child: Center()
       ),

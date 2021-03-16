@@ -25,6 +25,8 @@ dependencies:
     sdk: flutter
 
   http: ^0.13.0
+  flutter_config: ^1.0.8
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -78,6 +80,10 @@ flutter:
        fonts:
          - asset: assets/fonts/VarelaRound-Regular.ttf
            weight: 400
+
+     - family:  Tmdb
+       fonts:
+         - asset: assets/fonts/Tmdb.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
