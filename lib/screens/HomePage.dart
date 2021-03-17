@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 
+import '../widget/tabcontainer.dart';
+
+//import '../Icons/tmdb_icons.dart';
+
 class HomePage extends StatelessWidget {
-  final color = Color.fromRGBO(222, 195, 122, 1);
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(222, 195, 122, 1),
+        /*leading: Icon(
+          Tmdb.music,
+          color: Colors.black,
+        ),*/
+        backgroundColor: Colors.white,
         elevation: 10,
         centerTitle: true,
         title: Text(
-          'Movies app',
+          'Shows',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -21,14 +28,22 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      body: Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          color: Colors.white,
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Container(
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+            color: Colors.white,
+          ),
+          child: Column(
+            children: <Widget>[
+              TabContainer(),
+            ],
+          ),
         ),
-        child: Center()
       ),
     );
   }
 }
+
