@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
+class BarContainer extends StatefulWidget {
+  final controller;
 
-class TabContainer extends StatefulWidget {
+  BarContainer({
+    this.controller,
+  });
+
   @override
-  _TabContainerState createState() => _TabContainerState();
+  _BarContainerState createState() => _BarContainerState();
 }
 
-class _TabContainerState extends State<TabContainer> {
+class _BarContainerState extends State<BarContainer> {
   final color = Color.fromRGBO(222, 195, 122, 1);
   int selection = 0;
 
@@ -18,6 +23,17 @@ class _TabContainerState extends State<TabContainer> {
     'Credits',
     'Collections'
   ];
+
+  void changeselection(int index, controller) {
+    setState(() {
+      selection = index;
+    });
+    controller.animateToPage(
+      index,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeIn,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,12 +62,10 @@ class _TabContainerState extends State<TabContainer> {
 
   GestureDetector buildTabElement(int index) {
     return GestureDetector(
-      onTap: (){
-        setState(() {
-          selection = index;
-        });
+      onTap: () {
+        changeselection(index, widget.controller);
       },
-          child: Container(
+      child: Container(
         height: 50,
         child: Column(
           children: <Widget>[
