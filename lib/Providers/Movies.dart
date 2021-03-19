@@ -38,12 +38,29 @@ class Movies with ChangeNotifier {
 
   //Method gets Movie Lists data from TMDB
   Future<void> fetchMoviesList() async {
-    var url = Uri.https('https://api.themoviedb.org/3',
-        '/movie/popular/$apikey&language=en-US&page=1');
+    /*var url = Uri.https('https://api.themoviedb.org/3',
+        '/movie/popular?api_key=0962b14981c91748a0b2c79d6c0227c1&language=en-US&page=${1}');*/
+    var url = Uri.parse(
+        'https://api.themoviedb.org/3/movie/popular?api_key=0962b14981c91748a0b2c79d6c0227c1&language=en-US&page=${1}');
     var client = http.Client();
     try {
       var response = await client.get(url);
-      print(json.decode(response.body));
+      var results = json.decode(response.body) as Map<String, dynamic>;
+      var loaded = results['results']
+          .map((obj) => Movie(
+                backdroppath: obj['backdrop_path'],
+                id: obj['id'],
+                overview: obj['overview'],
+                releasedate: obj['release_date'],
+                tagline: '',
+                title: obj['title'],
+                voteaverage: obj['vote_averate'],
+                votecount: obj['votecount'],
+                posterpath: obj['poster_path'],
+              ))
+          .toList();
+      _popular = loaded;
+      notifyListeners();
     } catch (error) {
       throw (error);
     }
