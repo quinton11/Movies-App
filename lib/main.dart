@@ -7,7 +7,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import './screens/HomePage.dart';
 import './Providers/Movies.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DotEnv.load(fileName: '.env');
@@ -26,7 +25,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        debugShowCheckedModeBanner: true,
+        debugShowCheckedModeBanner: false,
         home: HomePage(),
       ),
     );

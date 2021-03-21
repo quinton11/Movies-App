@@ -77,7 +77,7 @@ class Movies with ChangeNotifier {
 
   Future<void> fetchUpcomingMovieList(var client) async {
     var url = Uri.parse(
-        'https://api.themoviedb.org/3/movie/popular?api_key=$apikey&language=en-US&page=${1}');
+        'https://api.themoviedb.org/3/movie/upcoming?api_key=$apikey&language=en-US&page=${1}');
 
     try {
       var response = await client.get(url);
@@ -96,8 +96,7 @@ class Movies with ChangeNotifier {
               ))
           .toList();
       _upcoming = loaded;
-      print(_popular);
-      print("Loaded list from site: $loaded");
+      
       notifyListeners();
     } catch (error) {
       throw (error);
@@ -106,7 +105,7 @@ class Movies with ChangeNotifier {
 
   Future<void> fetchTopRatedMovieList(var client) async {
     var url = Uri.parse(
-        'https://api.themoviedb.org/3/movie/popular?api_key=$apikey&language=en-US&page=${1}');
+        'https://api.themoviedb.org/3/movie/top_rated?api_key=$apikey&language=en-US&page=${1}');
 
     try {
       var response = await client.get(url);
@@ -135,7 +134,7 @@ class Movies with ChangeNotifier {
 
   Future<void> fetchNowPlayingMovieList(var client) async {
     var url = Uri.parse(
-        'https://api.themoviedb.org/3/movie/popular?api_key=$apikey&language=en-US&page=${1}');
+        'https://api.themoviedb.org/3/movie/now_playing?api_key=$apikey&language=en-US&page=${1}');
 
     try {
       var response = await client.get(url);
@@ -164,7 +163,7 @@ class Movies with ChangeNotifier {
 
   Future<void> fetchLatestMovieList(var client) async {
     var url = Uri.parse(
-        'https://api.themoviedb.org/3/movie/popular?api_key=$apikey&language=en-US');
+        'https://api.themoviedb.org/3/movie/latest?api_key=$apikey&language=en-US');
 
     try {
       var response = await client.get(url);

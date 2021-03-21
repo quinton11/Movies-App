@@ -73,6 +73,10 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   MoviePage(
                     poplist: moviedata.popular,
+                    nowplayinglist: moviedata.nowplaying,
+                    topratedlist: moviedata.toprated,
+                    upcominglist: moviedata.upcoming,
+                    latest: moviedata.latest,
                   ),
                   TvPage(),
                   CelebPage(),

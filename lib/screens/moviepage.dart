@@ -2,14 +2,22 @@ import 'package:flutter/material.dart';
 
 class MoviePage extends StatelessWidget {
   final poplist;
+  final upcominglist;
+  final topratedlist;
+  final nowplayinglist;
+  final latest;
   MoviePage({
     this.poplist,
+    this.nowplayinglist,
+    this.topratedlist,
+    this.upcominglist,
+    this.latest,
   });
   @override
   Widget build(BuildContext context) {
     //print(poplist[0]);
     return Container(
-      color: Colors.white54,
+      color: Colors.white,
       width: double.infinity,
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -26,6 +34,17 @@ class MoviePage extends StatelessWidget {
               ),
               SizedBox(
                 height: 30,
+              ),
+              ScrollSection(
+                datalist: upcominglist,
+                title: 'Upcoming',
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              ScrollSection(
+                datalist: nowplayinglist,
+                title: 'Now Playing',
               ),
             ],
           ),
@@ -48,9 +67,9 @@ class ScrollSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 490,
+      height: 480,
       decoration: BoxDecoration(
-        color: Colors.black,
+        color: Colors.white,
       ),
       child: Column(
         children: <Widget>[
@@ -65,7 +84,7 @@ class ScrollSection extends StatelessWidget {
                   Text(
                     title,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontFamily: 'Montserrat',
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -87,13 +106,13 @@ class ScrollSection extends StatelessWidget {
             height: 15,
           ),
           Container(
-            height: 420,
+            height: 410,
             child: ListView.separated(
               padding: EdgeInsets.symmetric(horizontal: 10),
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) => Container(
                 width: 230,
-                height: 420,
+                height: 410,
                 decoration: BoxDecoration(
                   color: Colors.grey,
                   borderRadius: BorderRadius.only(
@@ -118,7 +137,7 @@ class ScrollSection extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      height: 90,
+                      height: 80,
                       width: 230,
                       padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
@@ -128,14 +147,18 @@ class ScrollSection extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            '#${index + 1} \n ${datalist[index].title}',
-                            style: TextStyle(
-                              color: Colors.white70,
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.bold,
+                          Container(
+                            height: 40,
+                            width: 200,
+                            child: Text(
+                              '#${index + 1} \n ${datalist[index].title}',
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.bold,
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            overflow: TextOverflow.clip,
                           ),
                           Row(
                             children: [
