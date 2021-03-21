@@ -1,5 +1,5 @@
 class Movie {
-  final int id, voteaverage, votecount;
+  final id, votecount, voteaverage;
   final String backdroppath, title, overview, releasedate, tagline, posterpath;
 
   Movie({

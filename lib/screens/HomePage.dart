@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
     // ignore: todo
     // TODO: implement didChangeDependencies
     if (_isinit) {
-      Provider.of<Movies>(context).fetchMoviesList();
+      Provider.of<Movies>(context).getmovieslist();
     }
     _isinit = false;
     super.didChangeDependencies();
@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
     final moviedata = Provider.of<Movies>(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.white54,
         elevation: 10,
         centerTitle: true,
         title: Text(
@@ -60,6 +60,7 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         width: width,
         height: height,
+        color: Colors.white54,
         child: Column(
           children: [
             BarContainer(
