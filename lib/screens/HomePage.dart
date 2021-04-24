@@ -44,13 +44,13 @@ class _HomePageState extends State<HomePage> {
     final moviedata = Provider.of<Movies>(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white54,
+        backgroundColor: Colors.black,
         elevation: 10,
         centerTitle: true,
         title: Text(
           'Shows',
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
             fontWeight: FontWeight.bold,
             fontFamily: 'Montserrat',
             fontSize: 25,
@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         width: width,
         height: height,
-        color: Colors.white54,
+        color: Color.fromRGBO(37, 43, 51, 1),
         child: Column(
           children: [
             BarContainer(

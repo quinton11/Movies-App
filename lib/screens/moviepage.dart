@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class MoviePage extends StatelessWidget {
@@ -17,14 +19,21 @@ class MoviePage extends StatelessWidget {
   Widget build(BuildContext context) {
     //print(poplist[0]);
     return Container(
-      color: Colors.white,
+      color: Colors.black,
       width: double.infinity,
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Container(
-          color: Colors.white38,
+          color: Colors.black,
           child: Column(
             children: [
+              SizedBox(
+                height: 30,
+              ),
+              ScrollSection(
+                datalist: topratedlist,
+                title: 'Top rated',
+              ),
               SizedBox(
                 height: 30,
               ),
@@ -69,7 +78,7 @@ class ScrollSection extends StatelessWidget {
     return Container(
       height: 480,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.black,
       ),
       child: Column(
         children: <Widget>[
@@ -84,7 +93,7 @@ class ScrollSection extends StatelessWidget {
                   Text(
                     title,
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.amber,
                       fontFamily: 'Montserrat',
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -106,29 +115,29 @@ class ScrollSection extends StatelessWidget {
             height: 15,
           ),
           Container(
-            height: 410,
+            height: 360,
             child: ListView.separated(
               padding: EdgeInsets.symmetric(horizontal: 10),
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) => Container(
-                width: 230,
-                height: 410,
+                width: 180,
+                height: 360,
                 decoration: BoxDecoration(
-                  color: Colors.grey,
+                  color: Color.fromRGBO(0, 0, 0, 0),
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20)),
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40)),
                 ),
-                child: Column(
+                child: Stack(
                   children: <Widget>[
                     Container(
-                      height: 330,
+                      height: 280,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20)),
+                            topLeft: Radius.circular(40),
+                            topRight: Radius.circular(40)),
                         image: DecorationImage(
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fill,
                           image: NetworkImage(
                             'https://image.tmdb.org/t/p/w500' +
                                 datalist[index].posterpath,
@@ -136,48 +145,59 @@ class ScrollSection extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Container(
-                      height: 80,
-                      width: 230,
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[900],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 40,
-                            width: 200,
-                            child: Text(
-                              '#${index + 1} \n ${datalist[index].title}',
-                              style: TextStyle(
-                                color: Colors.white70,
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.bold,
-                              ),
-                              overflow: TextOverflow.ellipsis,
+                    Positioned(
+                      top: 280,
+                      child: ClipRect(
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(
+                            sigmaX: 10,
+                            sigmaY: 10,
+                          ),
+                          child: Container(
+                            height: 80,
+                            width: 180,
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              color: Color.fromRGBO(0, 0, 0, 0),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: 40,
+                                  width: 180,
+                                  child: Text(
+                                    '#${index + 1} \n ${datalist[index].title}',
+                                    style: TextStyle(
+                                      color: Colors.white70,
+                                      fontFamily: 'Montserrat',
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      '${datalist[index].voteaverage}',
+                                      style: TextStyle(
+                                        color: Colors.white70,
+                                        fontFamily: 'Montserrat',
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
                             ),
                           ),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                              ),
-                              SizedBox(width: 10),
-                              Text(
-                                '${datalist[index].voteaverage}',
-                                style: TextStyle(
-                                  color: Colors.white70,
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
+                        ),
                       ),
                     ),
                   ],

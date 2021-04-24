@@ -5,11 +5,12 @@ class DiscoverPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
+      color: Colors.black,
       child: Center(
         child: Text(
           'Discover',
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.amber,
             fontFamily: 'Montserrat',
           ),
         ),
