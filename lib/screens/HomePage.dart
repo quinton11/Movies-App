@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/Providers/Movies.dart';
+import 'package:movie_app/Providers/Tvprovider.dart';
 import 'package:provider/provider.dart';
 
 import '../widget/tabcontainer.dart';
@@ -32,6 +33,7 @@ class _HomePageState extends State<HomePage> {
     // TODO: implement didChangeDependencies
     if (_isinit) {
       Provider.of<Movies>(context).getmovieslist();
+      Provider.of<TvProvider>(context).getLists();
     }
     _isinit = false;
     super.didChangeDependencies();
@@ -42,6 +44,7 @@ class _HomePageState extends State<HomePage> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final moviedata = Provider.of<Movies>(context);
+    final tvdata = Provider.of<TvProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -78,7 +81,12 @@ class _HomePageState extends State<HomePage> {
                     upcominglist: moviedata.upcoming,
                     latest: moviedata.latest,
                   ),
-                  TvPage(),
+                  TvPage(
+                    airingtoday: tvdata.tvairingtoday,
+                    ontheair: tvdata.tvontheair,
+                    popular: tvdata.populartv,
+                    toprated: tvdata.topratedtv,
+                  ),
                   CelebPage(),
                   DiscoverPage(),
                   CreditsPage(),

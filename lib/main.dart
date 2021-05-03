@@ -6,6 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 
 import './screens/HomePage.dart';
 import './Providers/Movies.dart';
+import './Providers/Tvprovider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => Movies(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => TvProvider(),
         ),
       ],
       child: MaterialApp(

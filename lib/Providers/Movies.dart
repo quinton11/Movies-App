@@ -67,8 +67,6 @@ class Movies with ChangeNotifier {
               ))
           .toList();
       _popular = loaded;
-      print(_popular);
-      print("Loaded list from site: $loaded");
       notifyListeners();
     } catch (error) {
       throw (error);
@@ -124,8 +122,8 @@ class Movies with ChangeNotifier {
               ))
           .toList();
       _toprated = loaded;
-      //print(_popular);
-      //print("Loaded list from site: $loaded");
+      /*print(_popular);
+      print("Loaded list from site: $loaded");*/
       notifyListeners();
     } catch (error) {
       throw (error);

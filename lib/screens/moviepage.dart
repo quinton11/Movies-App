@@ -35,25 +35,64 @@ class MoviePage extends StatelessWidget {
                 title: 'Top rated',
               ),
               SizedBox(
-                height: 30,
+                height: 14,
+              ),
+              Divider(
+                color: Colors.amber,
+                height: 2,
+                indent: 30,
+                endIndent: 30,
+              ),
+              SizedBox(
+                height: 14,
               ),
               ScrollSection(
                 datalist: poplist,
                 title: 'Popular',
               ),
               SizedBox(
-                height: 30,
+                height: 14,
+              ),
+              Divider(
+                color: Colors.amber,
+                height: 2,
+                indent: 30,
+                endIndent: 30,
+              ),
+              SizedBox(
+                height: 14,
               ),
               ScrollSection(
                 datalist: upcominglist,
                 title: 'Upcoming',
               ),
               SizedBox(
-                height: 30,
+                height: 14,
+              ),
+              Divider(
+                color: Colors.amber,
+                height: 2,
+                indent: 30,
+                endIndent: 30,
+              ),
+              SizedBox(
+                height: 14,
               ),
               ScrollSection(
                 datalist: nowplayinglist,
                 title: 'Now Playing',
+              ),
+              SizedBox(
+                height: 14,
+              ),
+              Divider(
+                color: Colors.amber,
+                height: 2,
+                indent: 30,
+                endIndent: 30,
+              ),
+              SizedBox(
+                height: 14,
               ),
             ],
           ),
@@ -76,7 +115,7 @@ class ScrollSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 480,
+      height: 420,
       decoration: BoxDecoration(
         color: Colors.black,
       ),
