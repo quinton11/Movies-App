@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class TvPage extends StatelessWidget {
   final airingtoday;
@@ -201,14 +202,30 @@ class TvScrollList extends StatelessWidget {
                           topLeft: Radius.circular(10),
                           topRight: Radius.circular(10),
                         ),
-                        image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage(
-                            'https://image.tmdb.org/t/p/w500' +
-                                datalist[index].posterpath,
-                          ),
-                        ),
+                        /*image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: NetworkImage(
+                              'https://image.tmdb.org/t/p/w500' +
+                                  datalist[index].posterpath,
+                            ),
+                          ),*/
                       ),
+                      child: datalist[index].posterpath != null
+                          ? FadeInImage(
+                              placeholder: MemoryImage(kTransparentImage),
+                              image: NetworkImage(
+                                'https://image.tmdb.org/t/p/w500' +
+                                    datalist[index].posterpath,
+                              ),
+                            )
+                          : Center(
+                              child: Text(
+                                'N/A',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
                     ),
                     Positioned(
                       top: 180,

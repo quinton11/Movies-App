@@ -6,12 +6,19 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'dart:convert';
 
 import '../models/movie.dart';
+import '../models/crew.dart';
+import '../models/reviewer.dart';
 
 class Movies with ChangeNotifier {
   List _popular = [];
   List _upcoming = [];
   List _toprated = [];
   List _nowplaying = [];
+  List _actors = [];
+  List _directors = [];
+  List _writers = [];
+  List _reviews = [];
+  List _similarmovies = [];
   var _latest;
 
   final String apiurl = 'https://api.themoviedb.org/3';
@@ -34,6 +41,26 @@ class Movies with ChangeNotifier {
     return [..._nowplaying];
   }
 
+  List get actors {
+    return [..._actors];
+  }
+
+  List get directors {
+    return [..._directors];
+  }
+
+  List get writers {
+    return [..._writers];
+  }
+
+  List get reviews {
+    return [..._reviews];
+  }
+
+  List get similarmovies {
+    return [..._similarmovies];
+  }
+
   get latest => _latest;
 
   void getmovieslist() {
@@ -43,6 +70,14 @@ class Movies with ChangeNotifier {
     fetchPopularMovieList(client);
     fetchTopRatedMovieList(client);
     fetchUpcomingMovieList(client);
+  }
+
+  void loadmoviedeatils(movieid){
+    var client = http.Client();
+    getMovieCredits(client, movieid);
+    getReviews(client, movieid);
+    getsimilarMovies(client, movieid);
+
   }
 
   //Method gets Movie Lists data from TMDB
@@ -94,7 +129,7 @@ class Movies with ChangeNotifier {
               ))
           .toList();
       _upcoming = loaded;
-      
+
       notifyListeners();
     } catch (error) {
       throw (error);
@@ -185,5 +220,90 @@ class Movies with ChangeNotifier {
     } catch (error) {
       throw (error);
     }
+  }
+
+  Future<void> getMovieCredits(client, movieid) async {
+    var url = Uri.parse(
+        'https://api.themoviedb.org/3/movie/$movieid/credits?api_key=$apikey&language=en-US');
+
+    try {
+      var response = await client.get(url);
+      var results = json.decode(response.body) as Map<String, dynamic>;
+      var loaded = results['cast']
+          .map(
+            (key, cast) => Crew(
+              castid: cast['cast_id'],
+              character: cast['character'],
+              gender: cast['gender'],
+              id: cast['id'],
+              kfd: cast['known_for_department'],
+              name: cast['name'],
+              profilepath: cast['profile_path'],
+            ),
+          )
+          .toList();
+
+      List actors = loaded.where((crew) => crew.kfd == 'Acting').toList();
+      List writers = loaded.where((crew) => crew.kfd == 'Writer').toList();
+      List directors = loaded.where((crew) => crew.kfd == 'Directing').toList();
+      _actors = actors;
+      _writers = writers;
+      _directors = directors;
+      notifyListeners();
+    } catch (error) {}
+  }
+
+  Future<void> getReviews(client, movieid) async {
+    var url = Uri.parse(
+      'https://api.themoviedb.org/3/movie/$movieid/reviews?api_key=$apikey&language=en-US',
+    );
+
+    try {
+      var response = await client.get(url);
+      var results = json.decode(response.body) as Map<String, dynamic>;
+      var loaded = results['results']
+          .map(
+            (review) => Reviewer(
+              author: review['author'],
+              avatarpath: review['author_details']['avatar_path'],
+              content: review['content'],
+              createdat: review['created_at'],
+              rating: review['author_details']['rating'],
+              username: review['author_details']['username'],
+            ),
+          )
+          .toList();
+
+      _reviews = loaded;
+      notifyListeners();
+    } catch (error) {}
+  }
+
+  Future<void> getsimilarMovies(client, movieid) async {
+    var url = Uri.parse(
+      'https://api.themoviedb.org/3/movie/$movieid/similar?api_key=$apikey&language=en-US',
+    );
+
+    try {
+      var response = client.get(url);
+      var results = json.decode(response.body) as Map<String, dynamic>;
+      var loaded = results['results']
+          .map(
+            (result) => Movie(
+              backdroppath: result['backdrop_path'],
+              id: result['id'],
+              overview: result['overview'],
+              posterpath: result['poster_path'],
+              releasedate: result['release_date'],
+              tagline: '',
+              title: result['title'],
+              voteaverage: result['vote_average'],
+              votecount: result['vote_count'],
+            ),
+          )
+          .toList();
+      _similarmovies = loaded;
+      notifyListeners();
+    } catch (error) {}
   }
 }

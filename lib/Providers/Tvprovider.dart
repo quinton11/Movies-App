@@ -12,7 +12,7 @@ class TvProvider with ChangeNotifier {
   List _populartv = [];
   List _topratedtv = [];
 
-  final String apiurl = 'https://api.themoviedb.org/3/tv/airing_today';
+  final String apiurl = 'https://api.themoviedb.org/3/tv';
   final apikey = env['API_KEY'].toString();
 
   List get tvairingtoday {
@@ -40,7 +40,7 @@ class TvProvider with ChangeNotifier {
   }
 
   Future<void> tvAiringToday(client) async {
-    var url = Uri.parse(apiurl + '?api_key=$apikey&language=en-US&page=1');
+    var url = Uri.parse(apiurl + '/airing_today?api_key=$apikey&language=en-US&page=7');
     //List<String> pages = ['1', '2', '3', '4', '5'];
 
     try {
@@ -68,7 +68,7 @@ class TvProvider with ChangeNotifier {
   }
 
   Future<void> tvOntheAir(client) async {
-    var url = Uri.parse(apiurl + '?api_key=$apikey&language=en-US&page=1');
+    var url = Uri.parse(apiurl + '/on_the_air?api_key=$apikey&language=en-US&page=6');
     //List<String> pages = ['1', '2', '3', '4', '5'];
 
     try {
@@ -100,7 +100,7 @@ class TvProvider with ChangeNotifier {
   }
 
   Future<void> popularTv(client) async {
-    var url = Uri.parse(apiurl + '?api_key=$apikey&language=en-US&page=1');
+    var url = Uri.parse(apiurl + '/popular?api_key=$apikey&language=en-US&page=4');
     //List<String> pages = ['1', '2', '3', '4', '5'];
 
     try {
@@ -130,7 +130,7 @@ class TvProvider with ChangeNotifier {
   }
 
   Future<void> topRatedTv(client) async {
-    var url = Uri.parse(apiurl + '?api_key=$apikey&language=en-US&page=1');
+    var url = Uri.parse(apiurl + '/top_rated?api_key=$apikey&language=en-US&page=5');
     //List<String> pages = ['1', '2', '3', '4', '5'];
 
     try {
