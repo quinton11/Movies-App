@@ -13,13 +13,14 @@ class ScrollSection extends StatelessWidget {
 
   final datalist;
   final title;
+  static const color = Color.fromRGBO(38, 192, 171, 1);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 420,
       decoration: BoxDecoration(
-        color: Colors.black,
+        color: Colors.white,
       ),
       child: Column(
         children: <Widget>[
@@ -34,7 +35,7 @@ class ScrollSection extends StatelessWidget {
                   Text(
                     title,
                     style: TextStyle(
-                      color: Colors.amber,
+                      color: color,
                       fontFamily: 'Montserrat',
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -111,7 +112,8 @@ class ScrollSection extends StatelessWidget {
                             width: 180,
                             padding: EdgeInsets.all(5),
                             decoration: BoxDecoration(
-                              color: Color.fromRGBO(0, 0, 0, 0),
+                              color:
+                                  Colors.white70, //Color.fromRGBO(0, 0, 0, 0),
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -123,7 +125,7 @@ class ScrollSection extends StatelessWidget {
                                   child: Text(
                                     '#${index + 1} \n ${datalist[index].title}',
                                     style: TextStyle(
-                                      color: Colors.white70,
+                                      color: Colors.black, //Colors.white70,
                                       fontFamily: 'Montserrat',
                                       fontWeight: FontWeight.bold,
                                     ),

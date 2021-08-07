@@ -41,7 +41,7 @@ class _BarContainerState extends State<BarContainer> {
       height: 70,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.black,
+        color: Colors.white,
       ),
       child: Padding(
         padding: const EdgeInsets.only(
@@ -72,7 +72,9 @@ class _BarContainerState extends State<BarContainer> {
             Text(
               title[index],
               style: TextStyle(
-                color: selection == index ? Colors.amber : Colors.grey[600],
+                color: selection == index
+                    ? Color.fromRGBO(38, 192, 171, 1)
+                    : Colors.black, //Colors.grey[600],
                 fontFamily: 'Montserrat',
                 fontSize: 15,
                 fontWeight: FontWeight.normal,
@@ -83,7 +85,9 @@ class _BarContainerState extends State<BarContainer> {
               height: 2,
               width: 10,
               decoration: BoxDecoration(
-                color: selection == index ? Colors.amber : Colors.black,
+                color: selection == index
+                    ? Color.fromRGBO(38, 192, 171, 1)
+                    : Colors.black, //Colors.grey[600],
               ),
             )
           ],

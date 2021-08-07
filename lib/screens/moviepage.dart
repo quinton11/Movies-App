@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widget/movie_scrollsection.dart';
+//import '../widget/tvscroll_list.dart';
 
 class MoviePage extends StatelessWidget {
   final poplist;
@@ -8,6 +9,7 @@ class MoviePage extends StatelessWidget {
   final topratedlist;
   final nowplayinglist;
   final latest;
+  final color = Color.fromRGBO(38, 192, 171, 1);
   MoviePage({
     this.poplist,
     this.nowplayinglist,
@@ -24,7 +26,7 @@ class MoviePage extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Container(
-          color: Colors.black,
+          color: Colors.white,
           child: Column(
             children: [
               SizedBox(
@@ -38,7 +40,7 @@ class MoviePage extends StatelessWidget {
                 height: 14,
               ),
               Divider(
-                color: Colors.amber,
+                color: color,
                 height: 2,
                 indent: 30,
                 endIndent: 30,
@@ -54,7 +56,7 @@ class MoviePage extends StatelessWidget {
                 height: 14,
               ),
               Divider(
-                color: Colors.amber,
+                color: color,
                 height: 2,
                 indent: 30,
                 endIndent: 30,
@@ -70,7 +72,7 @@ class MoviePage extends StatelessWidget {
                 height: 14,
               ),
               Divider(
-                color: Colors.amber,
+                color: color,
                 height: 2,
                 indent: 30,
                 endIndent: 30,
@@ -86,7 +88,7 @@ class MoviePage extends StatelessWidget {
                 height: 14,
               ),
               Divider(
-                color: Colors.amber,
+                color: color,
                 height: 2,
                 indent: 30,
                 endIndent: 30,
@@ -101,4 +103,3 @@ class MoviePage extends StatelessWidget {
     );
   }
 }
-

@@ -47,13 +47,13 @@ class _HomePageState extends State<HomePage> {
     final tvdata = Provider.of<TvProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
         elevation: 10,
         centerTitle: true,
         title: Text(
           'Shows',
           style: TextStyle(
-            color: Colors.white,
+            color: Color.fromRGBO(38, 192, 171, 1),
             fontWeight: FontWeight.bold,
             fontFamily: 'Montserrat',
             fontSize: 25,
