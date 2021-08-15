@@ -21,6 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var _isinit = true;
+  var _isLoading = true;
   PageController controller = PageController(
     initialPage: 0,
   );
@@ -34,6 +35,9 @@ class _HomePageState extends State<HomePage> {
     if (_isinit) {
       Provider.of<Movies>(context).getmovieslist();
       Provider.of<TvProvider>(context).getLists();
+      setState(() {
+        _isLoading = false;
+      });
     }
     _isinit = false;
     super.didChangeDependencies();
@@ -69,31 +73,39 @@ class _HomePageState extends State<HomePage> {
             BarContainer(
               controller: controller,
             ),
-            Expanded(
-              child: PageView(
-                physics: NeverScrollableScrollPhysics(),
-                controller: controller,
-                children: [
-                  MoviePage(
-                    poplist: moviedata.popular,
-                    nowplayinglist: moviedata.nowplaying,
-                    topratedlist: moviedata.toprated,
-                    upcominglist: moviedata.upcoming,
-                    latest: moviedata.latest,
+            moviedata.popular == null
+                ? Expanded(
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: Color.fromRGBO(37, 43, 51, 1),
+                      ),
+                    ),
+                  )
+                : Expanded(
+                    child: PageView(
+                      physics: NeverScrollableScrollPhysics(),
+                      controller: controller,
+                      children: [
+                        MoviePage(
+                          poplist: moviedata.popular,
+                          nowplayinglist: moviedata.nowplaying,
+                          topratedlist: moviedata.toprated,
+                          upcominglist: moviedata.upcoming,
+                          latest: moviedata.latest,
+                        ),
+                        TvPage(
+                          airingtoday: tvdata.tvairingtoday,
+                          ontheair: tvdata.tvontheair,
+                          popular: tvdata.populartv,
+                          toprated: tvdata.topratedtv,
+                        ),
+                        CelebPage(),
+                        DiscoverPage(),
+                        CreditsPage(),
+                        CollectionsPage(),
+                      ],
+                    ),
                   ),
-                  TvPage(
-                    airingtoday: tvdata.tvairingtoday,
-                    ontheair: tvdata.tvontheair,
-                    popular: tvdata.populartv,
-                    toprated: tvdata.topratedtv,
-                  ),
-                  CelebPage(),
-                  DiscoverPage(),
-                  CreditsPage(),
-                  CollectionsPage(),
-                ],
-              ),
-            ),
           ],
         ),
       ),

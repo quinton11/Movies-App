@@ -1,143 +1,272 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:transparent_image/transparent_image.dart';
+import 'package:intl/intl.dart';
+//import 'package:transparent_image/transparent_image.dart';
 
 class TvScrollList extends StatelessWidget {
-  const TvScrollList({
-    Key key,
-    @required this.width,
+  TvScrollList({
+    this.title, //
     this.datalist,
-    this.title,
-  }) : super(key: key);
-
-  final double width;
-  final datalist;
+    this.width,
+  });
   final title;
+  final datalist;
+  final double width;
   static const color = Color.fromRGBO(38, 192, 171, 1);
+
+  String gettext(title) {
+    if (title == 'Top Rated') {
+      return "Here's this week's top rated shows";
+    } else if (title == 'Popular') {
+      return "This week's popular shows";
+    } else if (title == 'On The Air') {
+      return "Check out what people are watching";
+    } else if (title == 'Airing Today') {
+      return "Catch up with your favorite shows";
+    }
+    return '';
+  }
+
+  String date(date) {
+    if (date != null) {
+      return DateFormat('dd/MM/yyyy')
+          .format(
+            DateTime.parse(
+              date,
+            ),
+          )
+          .split("/")
+          .last;
+    } else {
+      return 'N/A';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    //final width = MediaQuery.of(context).size.width;
+    //The Container housing the scrolllist
     return Container(
-      //padding: EdgeInsets.all(5),
-      height: 300,
+      height: 450,
+      padding: EdgeInsets.all(8),
+      color: Colors.white,
       width: width,
-      decoration: BoxDecoration(
-        color: Colors.white,
-      ),
+      //Column to hold the vertical structure of elements in container
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          Row(
+            //Row holds the list title and view all button horizontally in container
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 3),
+                    child: Container(
+                      height: 20,
+                      width: 5,
+                      color: color,
+                    ),
+                  ),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      color: color,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  'View All',
+                  style: TextStyle(
+                    color: Colors.grey[400],
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ),
+            ],
+          ),
           Text(
-            title,
+            gettext(title),
             style: TextStyle(
-              fontFamily: 'Montserrat',
               color: color,
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(
-            height: 20,
+            height: 5,
           ),
           Container(
-            height: 230,
+            height: 350,
+            width: width,
+            padding: EdgeInsets.symmetric(vertical: 5),
             child: ListView.separated(
-              padding: EdgeInsets.symmetric(horizontal: 10),
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) => Container(
-                height: 230,
-                width: 130,
-                decoration: BoxDecoration(
-                  //color: Colors.green,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                  ),
-                ),
+                height: 280,
+                width: 140,
+                margin: EdgeInsets.symmetric(vertical: 10),
                 child: Stack(
-                  children: [
+                  children: <Widget>[
+                    //Container holding the movie poster path
                     Container(
-                      //color: Colors.blue,
-                      height: 180,
+                      height: 210,
                       decoration: BoxDecoration(
+                        color: color,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(10),
                           topRight: Radius.circular(10),
                         ),
                       ),
                       child: datalist[index].posterpath != null
-                          ? FadeInImage(
-                              placeholder: MemoryImage(kTransparentImage),
-                              image: NetworkImage(
-                                'https://image.tmdb.org/t/p/w500' +
-                                    datalist[index].posterpath,
+                          ? Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                ),
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(
+                                    'https://image.tmdb.org/t/p/w500' +
+                                        datalist[index].posterpath,
+                                  ),
+                                ),
                               ),
                             )
                           : Center(
                               child: Text(
                                 'N/A',
                                 style: TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.black,
                                 ),
                               ),
                             ),
                     ),
                     Positioned(
-                      top: 180,
-                      child: ClipRect(
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                          child: Container(
-                            height: 50,
-                            width: 130,
-                            decoration: BoxDecoration(
-                              color: Color.fromRGBO(0, 0, 0, 0),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Container(
-                                  height: 20,
-                                  width: 130,
-                                  child: Text(
-                                    datalist[index].name,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+                          ),
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Row(
+                                //mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 15,
+                                  ),
+                                  SizedBox(
+                                    width: 2,
+                                  ),
+                                  Text(
+                                    '${datalist[index].voteaverage}',
                                     style: TextStyle(
-                                      color: Colors.black,//white70
+                                      fontSize: 10,
+                                      color: Colors.black, //white70
                                       fontFamily: 'Montserrat',
                                       fontWeight: FontWeight.bold,
                                     ),
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                datalist[index].name,
+                                style: TextStyle(
+                                  color: Colors.black, //white70
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 10,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    //'Release: ' +
+                                    date(datalist[index].firstairdate),
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: 'Montserrat',
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 10,
+                                    ),
                                     overflow: TextOverflow.ellipsis,
                                   ),
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.amber,
-                                    ),
-                                    Text(
-                                      '${datalist[index].voteaverage}',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.black,//white70
-                                        fontFamily: 'Montserrat',
-                                        fontWeight: FontWeight.bold,
+                                  //Add Durations
+                                ],
+                              ),
+                              Center(
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 12),
+                                  height: 30,
+                                  margin: EdgeInsets.all(5),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.add,
+                                        color: Colors.teal,
+                                        size: 20,
                                       ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
+                                      Text(
+                                        'Watchlist',
+                                        style: TextStyle(
+                                            color: Colors.teal,
+                                            fontFamily: 'Montserrat',
+                                            fontWeight: FontWeight.normal,
+                                            fontSize: 12),
+                                      )
+                                    ],
+                                  ),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.teal),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      )),
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ),
-                    )
+                      height: 110,
+                      width: 140,
+                      top: 210,
+                    ),
                   ],
                 ),
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        blurRadius: 8,
+                        offset: Offset(0, 5), // changes position of shadow
+                      ),
+                    ],
+                    color: Colors.grey[100],
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
               ),
-              separatorBuilder: (context, index) => SizedBox(width: 15),
+              separatorBuilder: (context, index) => SizedBox(
+                width: 5,
+              ),
               itemCount: datalist.length,
             ),
           ),
