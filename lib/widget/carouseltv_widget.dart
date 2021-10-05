@@ -131,7 +131,7 @@ class CarouselTvWidget extends StatelessWidget {
         height: 350,
         scrollDirection: Axis.horizontal,
         autoPlay: true,
-        aspectRatio: 0.6,
+        aspectRatio: 0.8,
         enlargeCenterPage: true,
         viewportFraction: 1,
       ),

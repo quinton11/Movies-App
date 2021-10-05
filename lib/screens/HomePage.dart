@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/Providers/Movies.dart';
-import 'package:movie_app/Providers/Tvprovider.dart';
-import 'package:provider/provider.dart';
+
 
 import '../widget/tabcontainer.dart';
 import './moviepage.dart';
@@ -21,7 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var _isinit = true;
-  var _isLoading = true;
+  var _isLoading = false;
   PageController controller = PageController(
     initialPage: 0,
   );
@@ -32,13 +30,18 @@ class _HomePageState extends State<HomePage> {
   void didChangeDependencies() {
     // ignore: todo
     // TODO: implement didChangeDependencies
-    if (_isinit) {
-      Provider.of<Movies>(context).getmovieslist();
-      Provider.of<TvProvider>(context).getLists();
+    /*  if (_isinit) {
+      setState(() {
+        _isLoading = true;
+      });
+    }
+    Provider.of<Movies>(context).getmovieslist().then((_) {
       setState(() {
         _isLoading = false;
       });
-    }
+    }); */
+    // Provider.of<TvProvider>(context).getLists();
+
     _isinit = false;
     super.didChangeDependencies();
   }
@@ -47,8 +50,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final moviedata = Provider.of<Movies>(context);
-    final tvdata = Provider.of<TvProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -64,41 +66,26 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: Container(
-        width: width,
-        height: height,
-        color: Color.fromRGBO(37, 43, 51, 1),
-        child: Column(
-          children: [
-            BarContainer(
-              controller: controller,
-            ),
-            moviedata.popular == null
-                ? Expanded(
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: Color.fromRGBO(37, 43, 51, 1),
-                      ),
-                    ),
-                  )
-                : Expanded(
+      body: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : Container(
+              width: width,
+              height: height,
+              color: Color.fromRGBO(37, 43, 51, 1),
+              child: Column(
+                children: [
+                  BarContainer(
+                    controller: controller,
+                  ),
+                  Expanded(
                     child: PageView(
                       physics: NeverScrollableScrollPhysics(),
                       controller: controller,
                       children: [
-                        MoviePage(
-                          poplist: moviedata.popular,
-                          nowplayinglist: moviedata.nowplaying,
-                          topratedlist: moviedata.toprated,
-                          upcominglist: moviedata.upcoming,
-                          latest: moviedata.latest,
-                        ),
-                        TvPage(
-                          airingtoday: tvdata.tvairingtoday,
-                          ontheair: tvdata.tvontheair,
-                          popular: tvdata.populartv,
-                          toprated: tvdata.topratedtv,
-                        ),
+                        MoviePage(),
+                        TvPage(),
                         CelebPage(),
                         DiscoverPage(),
                         CreditsPage(),
@@ -106,9 +93,9 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
-          ],
-        ),
-      ),
+                ],
+              ),
+            ),
     );
   }
 }

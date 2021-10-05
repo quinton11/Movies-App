@@ -30,6 +30,7 @@ class TvScrollList extends StatelessWidget {
 
   String date(date) {
     if (date != null) {
+      // print(date);
       return DateFormat('dd/MM/yyyy')
           .format(
             DateTime.parse(

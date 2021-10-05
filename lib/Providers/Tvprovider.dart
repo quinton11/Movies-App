@@ -31,16 +31,23 @@ class TvProvider with ChangeNotifier {
     return [..._topratedtv];
   }
 
-  void getLists() {
+  Future<void> getLists() async {
     var client = http.Client();
-    tvAiringToday(client);
+    await Future.wait([
+      tvAiringToday(client),
+      tvOntheAir(client),
+      popularTv(client),
+      topRatedTv(client)
+    ]);
+    /* tvAiringToday(client);
     tvOntheAir(client);
     popularTv(client);
-    topRatedTv(client);
+    topRatedTv(client); */
   }
 
   Future<void> tvAiringToday(client) async {
-    var url = Uri.parse(apiurl + '/airing_today?api_key=$apikey&language=en-US&page=7');
+    var url = Uri.parse(
+        apiurl + '/airing_today?api_key=$apikey&language=en-US&page=7');
     //List<String> pages = ['1', '2', '3', '4', '5'];
 
     try {
@@ -68,7 +75,8 @@ class TvProvider with ChangeNotifier {
   }
 
   Future<void> tvOntheAir(client) async {
-    var url = Uri.parse(apiurl + '/on_the_air?api_key=$apikey&language=en-US&page=6');
+    var url =
+        Uri.parse(apiurl + '/on_the_air?api_key=$apikey&language=en-US&page=6');
     //List<String> pages = ['1', '2', '3', '4', '5'];
 
     try {
@@ -100,7 +108,8 @@ class TvProvider with ChangeNotifier {
   }
 
   Future<void> popularTv(client) async {
-    var url = Uri.parse(apiurl + '/popular?api_key=$apikey&language=en-US&page=4');
+    var url =
+        Uri.parse(apiurl + '/popular?api_key=$apikey&language=en-US&page=4');
     //List<String> pages = ['1', '2', '3', '4', '5'];
 
     try {
@@ -130,7 +139,8 @@ class TvProvider with ChangeNotifier {
   }
 
   Future<void> topRatedTv(client) async {
-    var url = Uri.parse(apiurl + '/top_rated?api_key=$apikey&language=en-US&page=5');
+    var url =
+        Uri.parse(apiurl + '/top_rated?api_key=$apikey&language=en-US&page=5');
     //List<String> pages = ['1', '2', '3', '4', '5'];
 
     try {

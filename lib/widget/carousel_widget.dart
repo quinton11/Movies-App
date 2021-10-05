@@ -24,18 +24,20 @@ class CarouselWidget extends StatelessWidget {
                 color: Colors.white70,
               ),
             ),
-            Container(
-              height: 250,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: NetworkImage(
-                    'https://image.tmdb.org/t/p/w500' +
-                        datalist[index].backdroppath,
+            (datalist == null && datalist.length < index)
+                ? CircularProgressIndicator()
+                : Container(
+                    height: 250,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: NetworkImage(
+                          'https://image.tmdb.org/t/p/w500' +
+                              datalist[index].backdroppath,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
             Positioned(
               child: Container(
                 height: 150,
@@ -113,7 +115,7 @@ class CarouselWidget extends StatelessWidget {
         height: 350,
         scrollDirection: Axis.horizontal,
         autoPlay: true,
-        aspectRatio: 0.6,
+        aspectRatio: 0.8,
         enlargeCenterPage: true,
         viewportFraction: 1,
       ),

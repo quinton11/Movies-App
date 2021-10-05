@@ -63,21 +63,27 @@ class Movies with ChangeNotifier {
 
   get latest => _latest;
 
-  void getmovieslist() {
+  Future<void> getmovieslist() async {
     var client = http.Client();
-    fetchLatestMovieList(client);
+    await Future.wait([
+      fetchLatestMovieList(client),
+      fetchNowPlayingMovieList(client),
+      fetchPopularMovieList(client),
+      fetchTopRatedMovieList(client),
+      fetchUpcomingMovieList(client),
+    ]);
+    /* fetchLatestMovieList(client);
     fetchNowPlayingMovieList(client);
     fetchPopularMovieList(client);
     fetchTopRatedMovieList(client);
-    fetchUpcomingMovieList(client);
+    fetchUpcomingMovieList(client); */
   }
 
-  void loadmoviedeatils(movieid){
+  void loadmoviedeatils(movieid) {
     var client = http.Client();
     getMovieCredits(client, movieid);
     getReviews(client, movieid);
     getsimilarMovies(client, movieid);
-
   }
 
   //Method gets Movie Lists data from TMDB

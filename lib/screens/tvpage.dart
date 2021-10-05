@@ -1,66 +1,93 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:movie_app/Providers/Tvprovider.dart';
+import 'package:provider/provider.dart';
 import '../widget/tvscroll_list.dart';
 import '../widget/carouseltv_widget.dart';
 
-class TvPage extends StatelessWidget {
-  final airingtoday;
-  final ontheair;
-  final popular;
-  final toprated;
+class TvPage extends StatefulWidget {
+  @override
+  _TvPageState createState() => _TvPageState();
+}
 
-  TvPage({
-    this.airingtoday,
-    this.ontheair,
-    this.popular,
-    this.toprated,
-  });
+class _TvPageState extends State<TvPage> {
+  var _isinit = true;
+  var _isloading = false;
+
+  @override
+  void didChangeDependencies() {
+    // ignore: todo
+    // TODO: implement didChangeDependencies
+    if (_isinit) {
+      setState(() {
+        _isloading = true;
+      });
+      Provider.of<TvProvider>(context).getLists().then((_) {
+        setState(() {
+          _isloading = false;
+        });
+      });
+    }
+    /* Provider.of<TvProvider>(context).getLists().then((_) {
+      setState(() {
+        _isloading = false;
+      });
+    }); */
+
+    _isinit = false;
+    super.didChangeDependencies();
+  }
+
+  Future<void> _refreshTV(BuildContext context) async {
+    Provider.of<TvProvider>(context).getLists();
+  }
 
   @override
   Widget build(BuildContext context) {
-    print(ontheair.length);
     final width = MediaQuery.of(context).size.width;
-    return Container(
-      color: Colors.white,
-      width: double.infinity,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Container(
-          child: Column(
-            children: <Widget>[
-              Container(
-                child: CarouselWidget(
-                  datalist: popular,
-                  width: width,
+    final tvdata = Provider.of<TvProvider>(context);
+    return RefreshIndicator(
+      onRefresh: () => _refreshTV(context),
+      child: _isloading
+          ? Center(
+              child: CircularProgressIndicator(
+                color: Color.fromRGBO(37, 43, 51, 1),
+              ),
+            )
+          : Container(
+              color: Colors.white,
+              width: double.infinity,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        child: CarouselTvWidget(
+                          datalist: tvdata.populartv,
+                          width: width,
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      TvScrollList(
+                        width: width,
+                        datalist: tvdata.tvairingtoday,
+                        title: 'Airing Today',
+                      ),
+                      TvScrollList(
+                        width: width,
+                        datalist: tvdata.topratedtv,
+                        title: 'Top Rated',
+                      ),
+                      TvScrollList(
+                        width: width,
+                        datalist: tvdata.tvontheair,
+                        title: 'On The Air',
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              SizedBox(height: 20),
-              TvScrollList(
-                width: width,
-                datalist: popular,
-                title: 'Popular',
-              ),
-              TvScrollList(
-                width: width,
-                datalist: airingtoday,
-                title: 'Airing Today',
-              ),
-              TvScrollList(
-                width: width,
-                datalist: toprated,
-                title: 'Top Rated',
-              ),
-              TvScrollList(
-                width: width,
-                datalist: ontheair,
-                title: 'On The Air',
-              ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }
