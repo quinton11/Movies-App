@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:movie_app/screens/moviedetails.dart';
 //import 'package:transparent_image/transparent_image.dart';
 
 class MovieScrollWidget extends StatelessWidget {
@@ -93,168 +94,179 @@ class MovieScrollWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 5),
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => Container(
-                height: 280,
-                width: 140,
-                margin: EdgeInsets.symmetric(vertical: 10),
-                child: Stack(
-                  children: <Widget>[
-                    //Container holding the movie poster path
-                    Container(
-                      height: 210,
-                      decoration: BoxDecoration(
-                        color: color,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10),
-                        ),
-                      ),
-                      child: datalist[index].posterpath != null
-                          ? Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
-                                ),
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                    'https://image.tmdb.org/t/p/w500' +
-                                        datalist[index].posterpath,
-                                  ),
-                                ),
-                              ),
-                            )
-                          : Center(
-                              child: Text(
-                                'N/A',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
+              itemBuilder: (context, index) => GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MovieDetails(movie: datalist[index],),
                     ),
-                    Positioned(
-                      child: Container(
+                  );
+                },
+                child: Container(
+                  height: 280,
+                  width: 140,
+                  margin: EdgeInsets.symmetric(vertical: 10),
+                  child: Stack(
+                    children: <Widget>[
+                      //Container holding the movie poster path
+                      Container(
+                        height: 210,
                         decoration: BoxDecoration(
+                          color: color,
                           borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10),
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
                           ),
-                          color: Colors.white,
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Row(
-                                //mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.amber,
-                                    size: 15,
+                        child: datalist[index].posterpath != null
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
                                   ),
-                                  SizedBox(
-                                    width: 2,
-                                  ),
-                                  Text(
-                                    '${datalist[index].voteaverage}',
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                      color: Colors.black, //white70
-                                      fontFamily: 'Montserrat',
-                                      fontWeight: FontWeight.bold,
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(
+                                      'https://image.tmdb.org/t/p/w500' +
+                                          datalist[index].posterpath,
                                     ),
                                   ),
-                                ],
-                              ),
-                              Text(
-                                datalist[index].title,
-                                style: TextStyle(
-                                  color: Colors.black, //white70
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 10,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    //'Release: ' +
-                                    DateFormat('dd/MM/yyyy')
-                                        .format(
-                                          DateTime.parse(
-                                            datalist[index].releasedate,
-                                          ),
-                                        )
-                                        .split("/")
-                                        .last,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'Montserrat',
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 10,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  //Add Durations
-                                ],
-                              ),
-                              Center(
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 12),
-                                  height: 30,
-                                  margin: EdgeInsets.all(5),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      Icon(
-                                        Icons.add,
-                                        color: Colors.teal,
-                                        size: 20,
-                                      ),
-                                      Text(
-                                        'Watchlist',
-                                        style: TextStyle(
-                                            color: Colors.teal,
-                                            fontFamily: 'Montserrat',
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 12),
-                                      )
-                                    ],
-                                  ),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.teal),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      )),
                                 ),
                               )
-                            ],
+                            : Center(
+                                child: Text(
+                                  'N/A',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                      ),
+                      Positioned(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10),
+                            ),
+                            color: Colors.white,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Row(
+                                  //mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                      size: 15,
+                                    ),
+                                    SizedBox(
+                                      width: 2,
+                                    ),
+                                    Text(
+                                      '${datalist[index].voteaverage}',
+                                      style: TextStyle(
+                                        fontSize: 10,
+                                        color: Colors.black, //white70
+                                        fontFamily: 'Montserrat',
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Text(
+                                  datalist[index].title,
+                                  style: TextStyle(
+                                    color: Colors.black, //white70
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      //'Release: ' +
+                                      DateFormat('dd/MM/yyyy')
+                                          .format(
+                                            DateTime.parse(
+                                              datalist[index].releasedate,
+                                            ),
+                                          )
+                                          .split("/")
+                                          .last,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: 'Montserrat',
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 10,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    //Add Durations
+                                  ],
+                                ),
+                                Center(
+                                  child: Container(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 12),
+                                    height: 30,
+                                    margin: EdgeInsets.all(5),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.add,
+                                          color: Colors.teal,
+                                          size: 20,
+                                        ),
+                                        Text(
+                                          'Watchlist',
+                                          style: TextStyle(
+                                              color: Colors.teal,
+                                              fontFamily: 'Montserrat',
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 12),
+                                        )
+                                      ],
+                                    ),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(color: Colors.teal),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10),
+                                        )),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      height: 110,
-                      width: 140,
-                      top: 210,
-                    ),
-                  ],
-                ),
-                decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        blurRadius: 8,
-                        offset: Offset(0, 5), // changes position of shadow
+                        height: 110,
+                        width: 140,
+                        top: 210,
                       ),
                     ],
-                    color: Colors.grey[100],
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                  ),
+                  decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          blurRadius: 8,
+                          offset: Offset(0, 5), // changes position of shadow
+                        ),
+                      ],
+                      color: Colors.grey[100],
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                ),
               ),
               separatorBuilder: (context, index) => SizedBox(
                 width: 5,

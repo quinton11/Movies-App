@@ -105,6 +105,7 @@ class Movies with ChangeNotifier {
                 voteaverage: obj['vote_average'],
                 votecount: obj['vote_count'],
                 posterpath: obj['poster_path'],
+                genres: obj['genres'],
               ))
           .toList();
       _popular = loaded;
@@ -132,6 +133,7 @@ class Movies with ChangeNotifier {
                 voteaverage: obj['vote_average'],
                 votecount: obj['vote_count'],
                 posterpath: obj['poster_path'],
+                genres: obj['genres'],
               ))
           .toList();
       _upcoming = loaded;
@@ -160,6 +162,7 @@ class Movies with ChangeNotifier {
                 voteaverage: obj['vote_average'],
                 votecount: obj['vote_count'],
                 posterpath: obj['poster_path'],
+                genres: obj['genres'],
               ))
           .toList();
       _toprated = loaded;
@@ -189,6 +192,7 @@ class Movies with ChangeNotifier {
                 voteaverage: obj['vote_average'],
                 votecount: obj['vote_count'],
                 posterpath: obj['poster_path'],
+                genres: obj['genres'],
               ))
           .toList();
       _nowplaying = loaded;
@@ -217,6 +221,7 @@ class Movies with ChangeNotifier {
         voteaverage: results['vote_average'],
         votecount: results['vote_count'],
         posterpath: results['poster_path'],
+        genres: results['genres'],
       );
 
       _latest = load;
@@ -305,6 +310,7 @@ class Movies with ChangeNotifier {
               title: result['title'],
               voteaverage: result['vote_average'],
               votecount: result['vote_count'],
+              genres: result['genres'],
             ),
           )
           .toList();
@@ -312,4 +318,13 @@ class Movies with ChangeNotifier {
       notifyListeners();
     } catch (error) {}
   }
+
+
+  //Get movie genre
+  Future<void> getgenre(movieid,client) async {
+    var url = Uri.parse(
+      'https://api.themoviedb.org/3/movie/$movieid/similar?api_key=$apikey&language=en-US',
+    );
+  }
+
 }

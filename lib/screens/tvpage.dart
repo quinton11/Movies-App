@@ -27,13 +27,11 @@ class _TvPageState extends State<TvPage> {
         });
       });
     }
-    /* Provider.of<TvProvider>(context).getLists().then((_) {
-      setState(() {
-        _isloading = false;
-      });
-    }); */
 
-    _isinit = false;
+    setState(() {
+      _isinit = false;
+    });
+
     super.didChangeDependencies();
   }
 

@@ -1,5 +1,5 @@
 class Movie {
-  final id, votecount, voteaverage;
+  final id, votecount, voteaverage,genres;
   final String backdroppath, title, overview, releasedate, tagline, posterpath;
 
   Movie({
@@ -12,5 +12,6 @@ class Movie {
     this.tagline,
     this.title,
     this.posterpath,
+    this.genres,
   });
 }

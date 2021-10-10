@@ -32,7 +32,10 @@ class _MoviePageState extends State<MoviePage> {
       });
     });
 
-    _isinit = false;
+    setState(() {
+      _isinit = false;
+    });
+
     super.didChangeDependencies();
   }
 
