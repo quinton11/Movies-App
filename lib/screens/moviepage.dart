@@ -27,9 +27,13 @@ class _MoviePageState extends State<MoviePage> {
       });
     }
     Provider.of<Movies>(context).getmovieslist().then((_) {
-      setState(() {
-        _isloading = false;
-      });
+      if (this.mounted) {
+        if (_isloading) {
+          setState(() {
+            _isloading = false;
+          });
+        }
+      }
     });
 
     setState(() {
@@ -54,6 +58,7 @@ class _MoviePageState extends State<MoviePage> {
           ? Center(
               child: CircularProgressIndicator(
                 color: Color.fromRGBO(37, 43, 51, 1),
+                backgroundColor: Colors.white,
               ),
             )
           : Container(
@@ -122,23 +127,6 @@ class _MoviePageState extends State<MoviePage> {
                       SizedBox(
                         height: 14,
                       ),
-                      /* MovieScrollWidget(
-                  datalist: moviedata.nowplaying,
-                  title: 'Now Playing',
-                  width: width,
-                ),
-                SizedBox(
-                  height: 14,
-                ),
-                Divider(
-                  color: color,
-                  height: 2,
-                  indent: 30,
-                  endIndent: 30,
-                ),
-                SizedBox(
-                  height: 14,
-                ), */
                     ],
                   ),
                 ),

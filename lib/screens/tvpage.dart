@@ -21,12 +21,16 @@ class _TvPageState extends State<TvPage> {
       setState(() {
         _isloading = true;
       });
-      Provider.of<TvProvider>(context).getLists().then((_) {
-        setState(() {
-          _isloading = false;
-        });
-      });
     }
+    Provider.of<TvProvider>(context).getLists().then((_) {
+      if (this.mounted) {
+        if (_isloading) {
+          setState(() {
+            _isloading = false;
+          });
+        }
+      }
+    });
 
     setState(() {
       _isinit = false;
@@ -49,6 +53,7 @@ class _TvPageState extends State<TvPage> {
           ? Center(
               child: CircularProgressIndicator(
                 color: Color.fromRGBO(37, 43, 51, 1),
+                backgroundColor: Colors.white,
               ),
             )
           : Container(

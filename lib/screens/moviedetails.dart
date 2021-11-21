@@ -25,7 +25,7 @@ class MovieDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    final width = double.infinity;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -116,19 +116,29 @@ class MovieDetails extends StatelessWidget {
             ),
             Stack(
               children: <Widget>[
-                Container(
-                  width: double.infinity,
-                  height: 230,
-                  decoration: BoxDecoration(
-                    //color: Colors.teal,
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: NetworkImage(
-                        'https://image.tmdb.org/t/p/w500' + movie.backdroppath,
+                movie.backdroppath != null
+                    ? Container(
+                        width: double.infinity,
+                        height: 230,
+                        decoration: BoxDecoration(
+                          //color: Colors.teal,
+                          image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: NetworkImage(
+                              'https://image.tmdb.org/t/p/w500' +
+                                  movie.backdroppath,
+                            ),
+                          ),
+                        ),
+                      )
+                    : Center(
+                        child: Text(
+                          'N/A',
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
                 Positioned(
                   left: width / 2 - 20,
                   top: 80,

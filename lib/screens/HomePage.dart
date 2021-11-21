@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
-
 import '../widget/tabcontainer.dart';
 import './moviepage.dart';
-import './celebpage.dart';
 import './collectionspage.dart';
 import './creditspage.dart';
 import './discoverpage.dart';
@@ -28,20 +26,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void didChangeDependencies() {
-    // ignore: todo
-    // TODO: implement didChangeDependencies
-    /*  if (_isinit) {
-      setState(() {
-        _isLoading = true;
-      });
-    }
-    Provider.of<Movies>(context).getmovieslist().then((_) {
-      setState(() {
-        _isLoading = false;
-      });
-    }); */
-    // Provider.of<TvProvider>(context).getLists();
-
     _isinit = false;
     super.didChangeDependencies();
   }
@@ -86,7 +70,6 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         MoviePage(),
                         TvPage(),
-                        CelebPage(),
                         DiscoverPage(),
                         CreditsPage(),
                         CollectionsPage(),

@@ -77,14 +77,8 @@ class TvProvider with ChangeNotifier {
   Future<void> tvOntheAir(client) async {
     var url =
         Uri.parse(apiurl + '/on_the_air?api_key=$apikey&language=en-US&page=6');
-    //List<String> pages = ['1', '2', '3', '4', '5'];
 
     try {
-      /*List responses = await Future.wait(pages.map(
-        (e) => client
-            .get(Uri.parse(apiurl + '?api_key=$apikey&language=en-US&page=$e')),
-      ));*/
-
       var response = await client.get(url);
       var results = json.decode(response.body) as Map<String, dynamic>;
       var loaded = results['results']
@@ -98,8 +92,6 @@ class TvProvider with ChangeNotifier {
                 firstairdate: result['first_air_date'],
               ))
           .toList();
-      //print(results);
-      //print(results.length);
       _tvontheair = loaded;
       notifyListeners();
     } catch (error) {

@@ -18,7 +18,6 @@ class _BarContainerState extends State<BarContainer> {
   final List<String> title = [
     'Movies',
     'Tv',
-    'Celebs',
     'Discover',
     'Credits',
     'Collections'
