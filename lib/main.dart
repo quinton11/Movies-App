@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_config/flutter_config.dart';
+import 'package:movie_app/Providers/Collectprovider.dart';
 import 'package:movie_app/Providers/Discovprovider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => DiscProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CollectionProvider(),
         )
       ],
       child: MaterialApp(
