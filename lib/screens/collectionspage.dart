@@ -55,7 +55,9 @@ class _CollectionsPageState extends State<CollectionsPage> {
               padding: EdgeInsets.symmetric(vertical: 10),
               width: double.infinity,
               color: Colors.white,
-              child: ListView.separated(
+              child:
+              //Add gridview builder 
+              ListView.separated(
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) => Container(
                   margin: EdgeInsets.symmetric(horizontal: 8),
@@ -66,11 +68,11 @@ class _CollectionsPageState extends State<CollectionsPage> {
                     ),
                     color: color,
                   ),
-                  height: 300,
+                  height: 250,
                   width: width,
                   child: data.collections[index].posterpath != null
                       ? Container(
-                          height: 300,
+                          height: 230,
                           width: 130,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
