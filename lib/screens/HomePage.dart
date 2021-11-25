@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../widget/tabcontainer.dart';
 import './moviepage.dart';
 import './collectionspage.dart';
-import './creditspage.dart';
+
 import './discoverpage.dart';
 import './tvpage.dart';
 
@@ -71,7 +71,6 @@ class _HomePageState extends State<HomePage> {
                         MoviePage(),
                         TvPage(),
                         DiscoverPage(),
-                        CreditsPage(),
                         CollectionsPage(),
                       ],
                     ),

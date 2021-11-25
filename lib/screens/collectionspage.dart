@@ -55,60 +55,110 @@ class _CollectionsPageState extends State<CollectionsPage> {
               padding: EdgeInsets.symmetric(vertical: 10),
               width: double.infinity,
               color: Colors.white,
-              child:
-              //Add gridview builder 
-              ListView.separated(
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) => Container(
-                  margin: EdgeInsets.symmetric(horizontal: 8),
+              child: ListView.separated(
+                itemBuilder: (BuildContext ctx, index) => Container(
+                  width: width - 20,
+                  height: 200,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      bottomLeft: Radius.circular(10),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
                     ),
                     color: color,
                   ),
-                  height: 250,
-                  width: width,
-                  child: data.collections[index].posterpath != null
-                      ? Container(
-                          height: 230,
-                          width: 130,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              bottomLeft: Radius.circular(10),
-                            ),
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                'https://image.tmdb.org/t/p/w500' +
-                                    data.collections[index].posterpath,
-                              ),
-                            ),
-                          ),
-                        )
-                      : Center(
-                          child: Text(
-                            'N/A',
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
-                        ), /*Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                  child: Row(
                     children: <Widget>[
-                      data.collections[index].posterpath != null
+                      Expanded(
+                        child: data.collections[index].posterpath != null
+                            ? Stack(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                      image: DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: NetworkImage(
+                                          'https://image.tmdb.org/t/p/w500' +
+                                              data.collections[index]
+                                                  .posterpath,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(20),
+                                        ),
+                                        color: Color.fromRGBO(0, 0, 0, 0.5),
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    child: Center(
+                                      child: Text(
+                                        data.collections[index].name,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontFamily: 'Montserrat',
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    left: 80,
+                                    bottom: 20,
+                                  )
+                                ],
+                              )
+                            : Center(
+                                child: Text(
+                                  'N/A',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                      )
+                    ],
+                  ),
+                ),
+                itemCount: data.collections.length,
+                separatorBuilder: (BuildContext ctx, index) => SizedBox(
+                  height: 8,
+                ),
+                scrollDirection: Axis.vertical,
+                padding: EdgeInsets.all(5),
+              )
+              /*GridView.builder(
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 200,
+                    childAspectRatio: 3 / 2,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 20),
+                itemCount: data.collections.length,
+                itemBuilder: (BuildContext ctx, index) => Stack(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft: Radius.circular(10),
+                        ),
+                        color: color,
+                      ),
+                      child: data.collections[index].posterpath != null
                           ? Container(
-                              height: 150,
-                              width: 130,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(10),
                                   bottomLeft: Radius.circular(10),
                                 ),
                                 image: DecorationImage(
-                                  fit: BoxFit.fitWidth,
+                                  fit: BoxFit.cover,
                                   image: NetworkImage(
                                     'https://image.tmdb.org/t/p/w500' +
                                         data.collections[index].posterpath,
@@ -124,46 +174,24 @@ class _CollectionsPageState extends State<CollectionsPage> {
                                 ),
                               ),
                             ),
-                      /*Container(
-                        width: 200,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.symmetric(horizontal: 5),
-                              width: 200,
-                              child: Text(
-                                data.collections[index].name,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ],
+                    ),
+                    Positioned(
+                      child: Container(
+                        width: 150,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                          ),
+                          color: Color.fromRGBO(0, 0, 0, 0.5),
                         ),
-                      ),*/
-                    ],
-                  ),*/
-                ),
-                separatorBuilder: (context, index) => SizedBox(
-                  height: 15,
-                ),
-                itemCount: data.collections.length,
-              ),
-              /*Center(
-                child: Text(
-                  'Collections',
-                  style: TextStyle(
-                    color: Colors.amber,
-                    fontFamily: 'Montserrat',
-                  ),
+                      ),
+                    )
+                  ],
                 ),
               ),*/
-            ),
+              //Add gridview builder
+              ),
     );
   }
 }

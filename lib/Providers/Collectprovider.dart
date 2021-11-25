@@ -55,7 +55,7 @@ class CollectionProvider with ChangeNotifier {
 
   Future fetchAllCollections() async {
     final List result = [];
-    final List firstqueries = ['Pirates', 'Lord', 'Star', 'Spider', 'Avengers'];
+    final List firstqueries = ['Pirates of the Caribbean', 'Lord of the Rings', 'Star Wars', 'Spider Man', 'Avengers'];
     var client = http.Client();
     for (int i = 0; i < firstqueries.length; i++) {
       result.addAll(

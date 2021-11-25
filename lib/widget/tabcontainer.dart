@@ -19,8 +19,7 @@ class _BarContainerState extends State<BarContainer> {
     'Movies',
     'Tv',
     'Discover',
-    'Credits',
-    'Collections'
+    'Collections',
   ];
 
   void changeselection(int index, controller) {
@@ -48,6 +47,7 @@ class _BarContainerState extends State<BarContainer> {
           bottom: 20,
         ),
         child: ListView.separated(
+          padding: EdgeInsets.symmetric(horizontal: 20),
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) => buildTabElement(index),
           separatorBuilder: (context, index) => SizedBox(
