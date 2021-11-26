@@ -68,7 +68,9 @@ class MovieScrollWidget extends StatelessWidget {
                 ],
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  /*Navigator.push(context, MaterialPageRoute(builder: (context){}),),*/
+                },
                 child: Text(
                   'View All',
                   style: TextStyle(
@@ -99,7 +101,9 @@ class MovieScrollWidget extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => MovieDetails(movie: datalist[index],),
+                      builder: (context) => MovieDetails(
+                        movie: datalist[index],
+                      ),
                     ),
                   );
                 },
