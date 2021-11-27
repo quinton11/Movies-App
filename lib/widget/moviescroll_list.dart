@@ -184,7 +184,7 @@ class MovieScrollWidget extends StatelessWidget {
                                       width: 2,
                                     ),
                                     Text(
-                                      '${datalist[index].voteaverage}',
+                                      '${datalist[index].voteaverage.toStringAsFixed(1)}',
                                       style: TextStyle(
                                         fontSize: 10,
                                         color: Colors.black, //white70

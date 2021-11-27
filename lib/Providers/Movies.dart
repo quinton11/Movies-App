@@ -19,6 +19,7 @@ class Movies with ChangeNotifier {
   List _writers = [];
   List _reviews = [];
   List _similarmovies = [];
+  List _crew = [];
   var _latest;
 
   final String apiurl = 'https://api.themoviedb.org/3';
@@ -27,6 +28,10 @@ class Movies with ChangeNotifier {
 
   List get popular {
     return [..._popular];
+  }
+
+  List get crew {
+    return [..._crew];
   }
 
   List get upcoming {
@@ -64,33 +69,29 @@ class Movies with ChangeNotifier {
   get latest => _latest;
 
   Future<void> getmovieslist() async {
-    var client = http.Client();
     await Future.wait([
-      fetchLatestMovieList(client),
-      fetchNowPlayingMovieList(client),
-      fetchPopularMovieList(client),
-      fetchTopRatedMovieList(client),
-      fetchUpcomingMovieList(client),
+      fetchLatestMovieList(),
+      fetchNowPlayingMovieList(),
+      fetchPopularMovieList(),
+      fetchTopRatedMovieList(),
+      fetchUpcomingMovieList(),
     ]);
-    /* fetchLatestMovieList(client);
-    fetchNowPlayingMovieList(client);
-    fetchPopularMovieList(client);
-    fetchTopRatedMovieList(client);
-    fetchUpcomingMovieList(client); */
   }
 
-  void loadmoviedeatils(movieid) {
-    var client = http.Client();
-    getMovieCredits(client, movieid);
-    getReviews(client, movieid);
-    getsimilarMovies(client, movieid);
+  Future<void> loadmoviedetails(movieid) async {
+    await Future.wait([
+      getMovieCredits(movieid),
+      getReviews(movieid),
+      getsimilarMovies(movieid)
+    ]);
   }
 
   //Method gets Movie Lists data from TMDB
-  Future<void> fetchPopularMovieList(var client) async {
+  Future<void> fetchPopularMovieList() async {
     var url = Uri.parse(
         'https://api.themoviedb.org/3/movie/popular?api_key=$apikey&language=en-US&page=${1}');
 
+    var client = http.Client();
     try {
       var response = await client.get(url);
       var results = json.decode(response.body) as Map<String, dynamic>;
@@ -110,15 +111,17 @@ class Movies with ChangeNotifier {
           .toList();
       _popular = loaded;
       notifyListeners();
+      client.close();
     } catch (error) {
       throw (error);
     }
   }
 
-  Future<void> fetchUpcomingMovieList(var client) async {
+  Future<void> fetchUpcomingMovieList() async {
     var url = Uri.parse(
         'https://api.themoviedb.org/3/movie/upcoming?api_key=$apikey&language=en-US&page=${1}');
 
+    var client = http.Client();
     try {
       var response = await client.get(url);
       var results = json.decode(response.body) as Map<String, dynamic>;
@@ -139,15 +142,17 @@ class Movies with ChangeNotifier {
       _upcoming = loaded;
 
       notifyListeners();
+      client.close();
     } catch (error) {
       throw (error);
     }
   }
 
-  Future<void> fetchTopRatedMovieList(var client) async {
+  Future<void> fetchTopRatedMovieList() async {
     var url = Uri.parse(
         'https://api.themoviedb.org/3/movie/top_rated?api_key=$apikey&language=en-US&page=${1}');
 
+    var client = http.Client();
     try {
       var response = await client.get(url);
       var results = json.decode(response.body) as Map<String, dynamic>;
@@ -169,15 +174,17 @@ class Movies with ChangeNotifier {
       /*print(_popular);
       print("Loaded list from site: $loaded");*/
       notifyListeners();
+      client.close();
     } catch (error) {
       throw (error);
     }
   }
 
-  Future<void> fetchNowPlayingMovieList(var client) async {
+  Future<void> fetchNowPlayingMovieList() async {
     var url = Uri.parse(
         'https://api.themoviedb.org/3/movie/now_playing?api_key=$apikey&language=en-US&page=${1}');
 
+    var client = http.Client();
     try {
       var response = await client.get(url);
       var results = json.decode(response.body) as Map<String, dynamic>;
@@ -199,15 +206,17 @@ class Movies with ChangeNotifier {
       //print(_popular);
       //print("Loaded list from site: $loaded");
       notifyListeners();
+      client.close();
     } catch (error) {
       throw (error);
     }
   }
 
-  Future<void> fetchLatestMovieList(var client) async {
+  Future<void> fetchLatestMovieList() async {
     var url = Uri.parse(
         'https://api.themoviedb.org/3/movie/latest?api_key=$apikey&language=en-US');
 
+    var client = http.Client();
     try {
       var response = await client.get(url);
       var results = json.decode(response.body) as Map<String, dynamic>;
@@ -228,18 +237,21 @@ class Movies with ChangeNotifier {
       //print(_popular);
       //print("Loaded list from site: $loaded");
       notifyListeners();
+      client.close();
     } catch (error) {
       throw (error);
     }
   }
 
-  Future<void> getMovieCredits(client, movieid) async {
+  Future<void> getMovieCredits(movieid) async {
     var url = Uri.parse(
         'https://api.themoviedb.org/3/movie/$movieid/credits?api_key=$apikey&language=en-US');
 
+    var client = http.Client();
     try {
       var response = await client.get(url);
       var results = json.decode(response.body) as Map<String, dynamic>;
+      print(results);
       var loaded = results['cast']
           .map(
             (key, cast) => Crew(
@@ -254,21 +266,22 @@ class Movies with ChangeNotifier {
           )
           .toList();
 
-      List actors = loaded.where((crew) => crew.kfd == 'Acting').toList();
-      List writers = loaded.where((crew) => crew.kfd == 'Writer').toList();
-      List directors = loaded.where((crew) => crew.kfd == 'Directing').toList();
-      _actors = actors;
-      _writers = writers;
-      _directors = directors;
+      _crew = loaded;
+      _actors = loaded.where((crew) => crew.kfd == 'Acting').toList();
+      _writers = loaded.where((crew) => crew.kfd == 'Writer').toList();
+      _directors = loaded.where((crew) => crew.kfd == 'Directing').toList();
+
       notifyListeners();
+      client.close();
     } catch (error) {}
   }
 
-  Future<void> getReviews(client, movieid) async {
+  Future<void> getReviews(movieid) async {
     var url = Uri.parse(
       'https://api.themoviedb.org/3/movie/$movieid/reviews?api_key=$apikey&language=en-US',
     );
 
+    var client = http.Client();
     try {
       var response = await client.get(url);
       var results = json.decode(response.body) as Map<String, dynamic>;
@@ -287,16 +300,19 @@ class Movies with ChangeNotifier {
 
       _reviews = loaded;
       notifyListeners();
+      client.close();
     } catch (error) {}
   }
 
-  Future<void> getsimilarMovies(client, movieid) async {
+  Future<void> getsimilarMovies(movieid) async {
     var url = Uri.parse(
-      'https://api.themoviedb.org/3/movie/$movieid/similar?api_key=$apikey&language=en-US',
+      'https://api.themoviedb.org/3/movie/$movieid/similar?api_key=$apikey&language=en-US&page=1',
     );
 
+    var client = http.Client();
+
     try {
-      var response = client.get(url);
+      var response = await client.get(url);
       var results = json.decode(response.body) as Map<String, dynamic>;
       var loaded = results['results']
           .map(
@@ -316,15 +332,14 @@ class Movies with ChangeNotifier {
           .toList();
       _similarmovies = loaded;
       notifyListeners();
+      client.close();
     } catch (error) {}
   }
 
-
   //Get movie genre
-  Future<void> getgenre(movieid,client) async {
+  Future<void> getgenre(movieid, client) async {
     var url = Uri.parse(
       'https://api.themoviedb.org/3/movie/$movieid/similar?api_key=$apikey&language=en-US',
     );
   }
-
 }
