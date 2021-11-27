@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
             color: Color.fromRGBO(38, 192, 171, 1),
             fontWeight: FontWeight.bold,
             fontFamily: 'Montserrat',
-            fontSize: 25,
+            fontSize: 20,
           ),
         ),
       ),

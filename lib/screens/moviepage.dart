@@ -66,6 +66,9 @@ class _MoviePageState extends State<MoviePage> {
               width: double.infinity,
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
+                physics: BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics(),
+                ),
                 child: Container(
                   color: Colors.white,
                   child: Column(

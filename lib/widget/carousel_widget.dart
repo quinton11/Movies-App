@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class CarouselWidget extends StatelessWidget {
+  static const color = Color.fromRGBO(38, 192, 171, 1);
   CarouselWidget({
     this.datalist,
     this.width,
@@ -32,13 +33,25 @@ class CarouselWidget extends StatelessWidget {
                       image: DecorationImage(
                         fit: BoxFit.fill,
                         image: NetworkImage(
-                          'https://image.tmdb.org/t/p/w500' +
-                              datalist[index].backdroppath,
+                          'https://image.tmdb.org/t/p/w780' +
+                              datalist[index].posterpath,
+                        ),
+                      ),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(
+                          10,
                         ),
                       ),
                     ),
+                    child: Center(
+                      child: Icon(
+                        Icons.play_circle_outline_sharp,
+                        color: Colors.white,
+                        size: 40,
+                      ),
+                    ),
                   ),
-            Positioned(
+            /*Positioned(
               child: Container(
                 height: 150,
                 width: 100,
@@ -52,9 +65,9 @@ class CarouselWidget extends StatelessWidget {
                   ],
                   //color: Colors.pink,
                   image: DecorationImage(
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover, //BoxFit.Fill
                     image: NetworkImage(
-                      'https://image.tmdb.org/t/p/w500' +
+                      'https://image.tmdb.org/t/p/w780' +
                           datalist[index].posterpath,
                     ),
                   ),
@@ -62,18 +75,10 @@ class CarouselWidget extends StatelessWidget {
               ),
               left: 20,
               top: 135,
-            ),
-            Positioned(
-              left: width / 2 - 10,
-              top: 100,
-              child: Icon(
-                Icons.play_circle_fill_outlined,
-                color: Colors.white,
-                size: 40,
-              ),
-            ),
-            Positioned(
-              left: 150,
+            ),*/
+
+            /*Positioned(
+              left: 100,
               top: 260,
               child: Container(
                 child: Column(
@@ -82,14 +87,14 @@ class CarouselWidget extends StatelessWidget {
                     Text(
                       datalist[index].title,
                       style: TextStyle(
-                        color: Colors.black, //white70
+                        color: color, //white70
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.bold,
                         fontSize: 10,
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
-                    Text(
+                    /*Text(
                       'Release: ' +
                           DateFormat('dd/MM/yyyy').format(
                             DateTime.parse(
@@ -103,21 +108,21 @@ class CarouselWidget extends StatelessWidget {
                         fontSize: 10,
                       ),
                       overflow: TextOverflow.ellipsis,
-                    ),
+                    ),*/
                   ],
                 ),
               ),
-            )
+            )*/
           ],
         ),
       ),
       options: CarouselOptions(
-        height: 350,
+        height: 320,
         scrollDirection: Axis.horizontal,
         autoPlay: true,
         aspectRatio: 0.8,
         enlargeCenterPage: true,
-        viewportFraction: 1,
+        viewportFraction: 0.7,
       ),
     );
   }

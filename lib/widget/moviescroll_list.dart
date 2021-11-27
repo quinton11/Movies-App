@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:movie_app/screens/moviedetails.dart';
+import 'package:movie_app/screens/MoviesView.dart';
 //import 'package:transparent_image/transparent_image.dart';
 
 class MovieScrollWidget extends StatelessWidget {
@@ -69,7 +70,15 @@ class MovieScrollWidget extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  /*Navigator.push(context, MaterialPageRoute(builder: (context){}),),*/
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MoviesView(
+                        data: datalist,
+                        title: title,
+                      ),
+                    ),
+                  );
                 },
                 child: Text(
                   'View All',
