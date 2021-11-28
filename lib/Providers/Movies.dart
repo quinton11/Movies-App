@@ -251,10 +251,10 @@ class Movies with ChangeNotifier {
     try {
       var response = await client.get(url);
       var results = json.decode(response.body) as Map<String, dynamic>;
-      print(results);
+      //print(results);
       var loaded = results['cast']
           .map(
-            (key, cast) => Crew(
+            (cast) => Crew(
               castid: cast['cast_id'],
               character: cast['character'],
               gender: cast['gender'],
@@ -267,6 +267,8 @@ class Movies with ChangeNotifier {
           .toList();
 
       _crew = loaded;
+      //print("Crew: /n $_crew");
+      //print crew actors writers and directors to see where issue is from
       _actors = loaded.where((crew) => crew.kfd == 'Acting').toList();
       _writers = loaded.where((crew) => crew.kfd == 'Writer').toList();
       _directors = loaded.where((crew) => crew.kfd == 'Directing').toList();

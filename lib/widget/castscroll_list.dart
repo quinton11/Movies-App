@@ -7,23 +7,22 @@ class CastList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     final width = MediaQuery.of(context).size.width;
     final data = Provider.of<Movies>(context).actors;
-    print(data);
-    print("Crew");
-    print(Provider.of<Movies>(context).crew);
+
     return Container(
-      height: 300,
+      height: 180,
       width: width,
-      child: ListView.builder(
+      child: ListView.separated(
         itemBuilder: (BuildContext ctx, index) => Container(
-          height: 200,
+          height: 150,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              /*data[index].profilepath != null
+              data[index].profilepath != null
                   ? Container(
+                      height: 100,
+                      width: 100,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: color,
@@ -48,18 +47,26 @@ class CastList extends StatelessWidget {
                           fontFamily: 'Montserrat',
                         ),
                       ),
-                    ),*/
+                    ),
               Container(
                 child: Text(
                   data[index].name,
+                  style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               )
             ],
           ),
         ),
         itemCount: data.length,
-        scrollDirection: Axis.vertical,
+        scrollDirection: Axis.horizontal,
         physics: BouncingScrollPhysics(),
+        separatorBuilder: (BuildContext ctx, index) => SizedBox(
+          width: 10,
+        ),
       ),
     );
   }
